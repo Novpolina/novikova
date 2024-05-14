@@ -1,0 +1,36 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+with open("data.txt", "r") as f:
+    lines = f.readlines()
+
+x_data = []
+y_data = []
+for i in range(len(lines)):
+    y = float(lines[i])
+    x_data.append(0.0264 * i)
+    y_data.append(y * 3.3 / 255)
+
+fig, ax = plt.subplots()
+x = np.linspace(0.99 * min(x_data), 1.01 * max(x_data), 100)
+
+# 1) Set plot title to "Процесс"
+ax.set_title("Процесс")
+
+# 2 & 3) Plot data in blue and set label to U(t)
+ax.plot(x_data, y_data, 'b.', label="U(t)")
+
+# 4) Add labels to the right of the graph
+plt.text(0.57 * max(x_data), 0.78*max(y_data), "Время заряда:  6.34с")
+plt.text(0.57 * max(x_data), 0.71*max(y_data), "Время разряда: 1.23с")
+
+# 5) Enable grid
+plt.grid(True)
+
+plt.xlabel('Время, с')
+plt.ylabel(r'Напряжение, В')
+plt.legend()  # Show the legend for the plot
+
+plt.savefig("plt.svg")
+
+plt.show()
